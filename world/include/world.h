@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <vector>
 #include <tuple>
 
 namespace wumpus {
@@ -26,8 +26,11 @@ namespace world {
 
 class World {
 public:
-	World(std::map<int, std::map<int, int> > map,
-			  std::tuple<int, int> starting_position);
+	World(std::vector<std::vector<int> > world_map,
+			  int starting_x,
+				int starting_y,
+				int wumpus_x,
+				int wumpus_y);
 
 	int Move(bool forward);
 	int Turn(bool cw);
@@ -39,10 +42,11 @@ private:
 	bool HandleGoldDrop();
 	bool HandleLadderClimb();
 
-	std::map<int, std::map<int, int> > world_map_;
-	std::tuple<int, int> current_position_;
+	std::vector<std::vector<int> > world_map_;
+	int current_x_, current_y_;
 	int current_orientation_;
-	bool wumpus_alive, arrow_shot, gold_picked_up;
+	int wumpus_x_, wumpus_y_;
+	bool wumpus_alive_, arrow_shot_, gold_picked_up_;
 };
 }
 }
